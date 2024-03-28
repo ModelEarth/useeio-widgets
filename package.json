@@ -18,11 +18,12 @@
   "scripts": {
     "build": "webpack --config webpack.config.js --mode=production",
     "clean": "node scripts/clean",
-    "dev": "webpack --config webpack.config.js --mode=development --watch",
+    "dev": "webpack serve --config webpack.config.js --mode=development --open",
     "dist": "node scripts/dist",
     "download": "node scripts/download",
     "server": "npx http-server ./build --cors",
-    "test": "ts-node ./node_modules/jasmine/bin/jasmine --config=jasmine.json"
+    "test": "ts-node ./node_modules/jasmine/bin/jasmine --config=jasmine.json",
+    "start": "npm run server"
   },
   "dependencies": {
     "@material-ui/core": "^4.12.3",
@@ -51,7 +52,7 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
   }
 }
-  
