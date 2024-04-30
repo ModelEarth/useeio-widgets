@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import * as React from "react";
+import React, { useEffect, useState } from 'react';
 import { Config } from "../../config";
 import * as constants from "../../constants";
 import * as colors from "../../util/colors";
@@ -72,6 +72,36 @@ export const ImpactHeader = (props: {
     config: Config,
     sorter: indicatorSorter
 }) => {
+    
+    const [selectedIndicators, setSelectedIndicators] = useState<Set<string>>(() => {
+    const hash = window.location.hash;
+    const params = new URLSearchParams(hash.replace('#', ''));
+    return new Set(params.get('indicators')?.split(',') || []);
+  });
+
+    // Update URL hash when selectedIndicators change
+    useEffect(() => {
+        const params = new URLSearchParams();
+        if (selectedIndicators.size > 0) {
+        params.set('indicators', Array.from(selectedIndicators).join(','));
+        }
+        window.location.hash = params.toString();
+    }, [selectedIndicators]);
+
+    // Handle checkbox change
+    const handleCheckboxChange = (indicatorCode: string) => {
+        setSelectedIndicators(prevSelected => {
+        const newSelected = new Set(prevSelected);
+        if (newSelected.has(indicatorCode)) {
+            newSelected.delete(indicatorCode);
+        } else {
+            newSelected.add(indicatorCode);
+        }
+        return newSelected;
+        });
+    };
+    
+    
 
     // no indicators
     if (!strings.isMember("mosaic", props.config.view) || !props.indicators || props.indicators.length === 0) {
@@ -126,19 +156,33 @@ export const ImpactHeader = (props: {
         let arrow = <></>;
         const sorted = props.sorter && props.sorter.indicators.includes(indicator);
         if (sorted) {
-            if (props.sorter.state === "desc")
+            if (props.sorter.state === "asc")
                 arrow = <ArrowDownwardIcon className={classes.arrow} />;
             else
                 arrow = <ArrowUpwardIcon className={classes.arrow} />;
         }
         items.push(
             <th key={key} className="indicator">
-                {arrow}
                 <div>
+                    {arrow}
+                    
+                <div>
+                    <input
+                        type="checkbox"
+                        id={`checkbox-${indicator.code}`}
+                        name={indicator.code}
+                        checked={selectedIndicators.has(indicator.code)}
+                        onChange={() => handleCheckboxChange(indicator.code)}
+                        />
                     <a onClick={() => props.onClick(indicator)} className={sorted ? classes.indicatorSorted : ""}>
+                        
                         {indicator.name} ({indicator.code})
                     </a>
+                    <div>  
+                    </div>
                 </div>
+                </div>
+                
             </th>
         );
     }

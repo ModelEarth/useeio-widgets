@@ -388,7 +388,7 @@ const Component = (props: { widget: SectorList }) => {
         <>
             {config.showabout && <AboutSection />}
             <div style={{ marginTop: marginTop }}>
-                <div>teasdasd where is </div>
+                
                 {
                     // display the matrix selector if we display a result
                     config.selectmatrix && props.widget.result ? (
@@ -565,7 +565,7 @@ export const TableHeader = ({ code, label, sorter, updateOtherSorter, style = {}
             arrow = <ArrowUpwardIcon className={classes.arrow} />;
     }
 
-    return <th style={style}><Grid container className={classes.margin}><Grid item ><a onClick={() => { updateOtherSorter(code); }}>gooo! {arrow}</a></Grid></Grid> </th>;
+    return <th style={style}><Grid container className={classes.margin}><Grid item ><a onClick={() => { updateOtherSorter(code); }}>{label} {arrow}</a></Grid></Grid> </th>;
 
 };
 
@@ -628,7 +628,7 @@ const ExclusionOfIndicators = () => {
         <Card className={classes.root}>
             <CardContent className={classes.content}>
                 <Typography>
-                    The negtive indicators JOBS and VADD are excluded from the combined
+                    The positive indicators JOBS and VADD are excluded from the combined
                     sort by default. This allows the most adverse overall impacts to appear first.
                 </Typography>
             </CardContent>
@@ -738,10 +738,11 @@ const Row = (props: RowProps) => {
                 <a style={{ cursor: "pointer" }} title={sector.name} onClick={onSelect}>
                     {strings.cut(sector.name, 80)}
                 </a>
-                <input type="checkbox" checked={selected} onChange={onSelect}></input>
+                
             </td>
             {config.showvalues ? demand : <></>}
             <ImpactResult {...props} />
+            
             <InputOutputCells sector={props.sector} widget={props.widget} />
             {rank ? rank : <></>}
         </tr>
