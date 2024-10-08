@@ -34,7 +34,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.22.3",
-    "useeio": "github:USEPA/useeio.js"
+    "useeio": "github:modelearth/useeio.js"
   },
   "devDependencies": {
     "@types/jasmine": "^5.1.4",
