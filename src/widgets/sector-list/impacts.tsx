@@ -85,7 +85,7 @@ export const ImpactHeader = (props: {
         if (selectedIndicators.size > 0) {
         params.set('indicators', Array.from(selectedIndicators).join(','));
         }
-        window.location.hash = params.toString();
+        window.location.hash = params.toString().replace(/%2C/g, ',');
     }, [selectedIndicators]);
 
     // Handle checkbox change
