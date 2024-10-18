@@ -65,9 +65,6 @@ a {
     cursor: pointer;
 }
 
-a:hover {
-    text-decoration: underline;
-}
 /* 
 .io input[type="text"], .io input[type="search"], .io select {
     height: 30px;
