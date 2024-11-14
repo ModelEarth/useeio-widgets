@@ -7,9 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="widgets.css">
+
+<script>
+if(typeof param=='undefined'){ var param={}; }
+param.showsearch = "true";
+document.addEventListener('hashChangeEvent', function (elem) {
+    console.log("useeio-widgets chart detects URL hashChangeEvent");
+    hashChangedUseeio();
+}, false);
+function hashChangedUseeio() {
+    model = getEpaModel();
+    // pageScript();
+}
+</script>
+
+<link type="text/css" rel="stylesheet" href="/localsite/css/base.css" id="/localsite/css/base.css" />
+<script type="text/javascript" src="/localsite/js/localsite.js?showheader=true"></script>
+
 </head>
 
-<body>
+<body><div class="content contentpadding">
+
     <div style="margin: 25px;">
 
         <div style="max-width: 750px; margin: auto;">
@@ -140,6 +158,7 @@
 
     </script>
 
-</body>
+
+</div></body>
 
 </html>

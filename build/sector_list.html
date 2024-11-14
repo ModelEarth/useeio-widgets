@@ -6,12 +6,47 @@
     <title>Industry list</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="widgets.css">
+
+<script>
+if(typeof param=='undefined'){ var param={}; }
+param.showsearch = "true";
+document.addEventListener('hashChangeEvent', function (elem) {
+    console.log("useeio-widgets chart detects URL hashChangeEvent");
+    hashChangedUseeio();
+}, false);
+function hashChangedUseeio() {
+    model = getEpaModel();
+    // pageScript();
+}
+</script>
+
+<link type="text/css" rel="stylesheet" href="/localsite/css/base.css" id="/localsite/css/base.css" />
+<script type="text/javascript" src="/localsite/js/localsite.js?showheader=true"></script>
+
+
+<script>
+if(typeof param=='undefined'){ var param={}; }
+param.showsearch = "true";
+document.addEventListener('hashChangeEvent', function (elem) {
+    console.log("useeio-widgets chart detects URL hashChangeEvent");
+    hashChangedUseeio();
+}, false);
+function hashChangedUseeio() {
+    model = getEpaModel();
+    // pageScript();
+}
+</script>
+
+<link type="text/css" rel="stylesheet" href="/localsite/css/base.css" id="/localsite/css/base.css" />
+<script type="text/javascript" src="/localsite/js/localsite.js?showheader=true"></script>
+
 </head>
 
-<body>
+<body><div class="content contentpadding">
+
     <div class="io">
         <div style="margin: 0 auto;">
-            <div class="matrix-title">Goods & Services: MEEEIOv1.0-s-20</div><br><br>
+            <div class="matrix-title">Goods & Services</div><br><br>
             <div class="sector-list">
             </div>
         </div>
@@ -19,8 +54,9 @@
 
     <script src="lib/useeio_widgets.js"></script>
     <script>
+
         var config = useeio.urlConfig();
-        var modelID = config.get().model || 'MEEEIOv1.0-s-20';
+        var modelID = config.get().model || 'USEEIOv2.0.1-411';
 
         var model = useeio.model({
             endpoint: './api',
@@ -38,6 +74,7 @@
         config.join(sectorList);
 
     </script>
-</body>
+
+</div></body>
 
 </html>
