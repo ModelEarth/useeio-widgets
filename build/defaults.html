@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Defaults</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="widgets.css">
+
+<script>
+if(typeof param=='undefined'){ var param={}; }
+param.showsearch = "true";
+document.addEventListener('hashChangeEvent', function (elem) {
+    console.log("useeio-widgets chart detects URL hashChangeEvent");
+    hashChangedUseeio();
+}, false);
+function hashChangedUseeio() {
+    model = getEpaModel();
+    // pageScript();
+}
+</script>
+
+<link type="text/css" rel="stylesheet" href="/localsite/css/base.css" id="/localsite/css/base.css" />
+<script type="text/javascript" src="/localsite/js/localsite.js?showheader=true"></script>
+
+</head>
+
+<body><div class="content contentpadding">
+
+    <div style="margin: 25px;">
+        <div class="grid-4" style="margin: 0 auto;">
+            <div class="col-1 span-2">
+                <div id="sector-list-1" class="sector-list">
+                </div>
+            </div>
+            <div class="col-3 span-2">
+                <div id="sector-list-2" class="sector-list">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="lib/useeio_widgets.js"></script>
+    <script>
+
+        var config = useeio.urlConfig();
+        var modelID = config.get().model || 'USEEIOv2.0.1-411';
+
+        var model = useeio.model({
+            endpoint: './api',
+            model: modelID,
+            asJsonFiles: true,
+        });
+
+        var industryList1 = useeio.sectorList({
+            model: model,
+            selector: '#sector-list-1',
+            scope: 'input'
+        });
+
+        var industryList2 = useeio.sectorList({
+            model: model,
+            selector: '#sector-list-2',
+            scope: 'output'
+        });
+
+        config.withDefaults({
+            page: 2,
+            count: 10,
+            sectors: ['336412', '722A00'],
+        });
+        config.join(industryList1);
+        config.join(industryList2);
+
+    </script>
+
+</div></body>
+
+</html>

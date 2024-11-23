@@ -2,10 +2,12 @@ const path = require('path');
 const buildDir = path.resolve(__dirname, 'build');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack'); // Import webpack to access built-in plugins
+const TerserPlugin = require('terser-webpack-plugin'); // Import TerserPlugin
 
 const config = {
     entry: {
         'useeio_widgets': './src/main.ts',
+        'useeio_widgets.min': './src/main.ts'  // Separate entry for minified version
     },
     module: {
         rules: [
@@ -20,7 +22,7 @@ const config = {
         extensions: ['.tsx', '.ts', '.js']
     },
     output: {
-        filename: '[name].js',
+        filename: '[name].js', // This will output both `useeio_widgets.js` and `useeio_widgets.min.js`
         path: buildDir + '/lib',
         libraryTarget: 'var',
         library: ['useeio'],
@@ -48,6 +50,14 @@ const config = {
     externals: {
         "apexcharts": "apexcharts",
     },
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({
+                include: /\.min\.js$/, // Only minify files with .min.js extension
+            }),
+        ],
+    },
     // Configure devServer
     devServer: {
         static: {
@@ -57,13 +67,13 @@ const config = {
         liveReload: true,
         open: true,
         port: 3000, // or any port of your choice
-        },
-
+    },
 };
 
 module.exports = (_env, argv) => {
     if (argv.mode === 'development') {
         config.devtool = 'source-map';
+        config.optimization = { minimize: false }; // No minification in development mode
     }
     return config;
 };

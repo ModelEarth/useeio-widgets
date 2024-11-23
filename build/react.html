@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>React ...</title>
+    <link rel="stylesheet" type="text/css" href="widgets.css">
+
+<script>
+if(typeof param=='undefined'){ var param={}; }
+param.showsearch = "true";
+document.addEventListener('hashChangeEvent', function (elem) {
+    console.log("useeio-widgets chart detects URL hashChangeEvent");
+    hashChangedUseeio();
+}, false);
+function hashChangedUseeio() {
+    model = getEpaModel();
+    // pageScript();
+}
+</script>
+
+<link type="text/css" rel="stylesheet" href="/localsite/css/base.css" id="/localsite/css/base.css" />
+<script type="text/javascript" src="/localsite/js/localsite.js?showheader=true"></script>
+
+</head>
+
+<body><div class="content contentpadding">
+
+    <div style="max-width: 750px; margin: auto;">
+        <h1 class="text-center">React</h1>
+        <div id="count-combo"></div>
+    </div>
+
+    <script src="lib/useeio_widgets.js"></script>
+
+    <script>
+        var config = useeio.urlConfig();
+        var modelID = config.get().model || 'USEEIOv2.0.1-411';
+
+        var model = useeio.model({
+            endpoint: './api',
+            model: modelID,
+            asJsonFiles: true,
+        });
+
+        var countCombo = useeio.countCombo({
+            model: model,
+            selector: '#count-combo',
+        });
+        config.join(countCombo);
+        config.updateIfAbsent({ count: 20 });
+    </script>
+
+</div></body>
+
+</html>
