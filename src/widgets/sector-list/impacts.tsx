@@ -81,11 +81,22 @@ export const ImpactHeader = (props: {
 
     // Update URL hash when selectedIndicators change
     useEffect(() => {
-        const params = new URLSearchParams();
+        // Preserve existing hash parameters
+        const currentHash = window.location.hash.replace('#', '');
+        const params = new URLSearchParams(currentHash);
+        
         if (selectedIndicators.size > 0) {
-        params.set('indicators', Array.from(selectedIndicators).join(','));
+            params.set('indicators', Array.from(selectedIndicators).join(','));
+        } else {
+            params.delete('indicators');
         }
-        window.location.hash = params.toString().replace(/%2C/g, ',');
+        
+        // Only update hash if it actually changed to avoid infinite loops
+        const newHash = params.toString().replace(/%2C/g, ',');
+        const oldHash = currentHash;
+        if (newHash !== oldHash) {
+            window.location.hash = newHash;
+        }
     }, [selectedIndicators]);
 
     // Handle checkbox change
