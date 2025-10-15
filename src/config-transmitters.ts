@@ -191,7 +191,23 @@ export class UrlConfigTransmitter extends ConfigTransmitter {
 
     update(input: Config | string) {
         super.update(input);
-        window.location.hash = "#" + this.serialize();
+        
+        // Preserve non-widget hash parameters (like 'state' from localsite)
+        const currentHash = window.location.hash.replace('#', '');
+        const currentParams = new URLSearchParams(currentHash);
+        const widgetParams = new URLSearchParams(this.serialize());
+        
+        // Get all known widget config keys
+        const widgetKeys = Array.from(widgetParams.keys());
+        
+        // Preserve parameters that are NOT widget config
+        currentParams.forEach((value, key) => {
+            if (!widgetKeys.includes(key) && !widgetParams.has(key)) {
+                widgetParams.set(key, value);
+            }
+        });
+        
+        window.location.hash = "#" + widgetParams.toString();
     }
 
 
